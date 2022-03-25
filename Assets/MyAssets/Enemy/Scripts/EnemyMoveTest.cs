@@ -11,6 +11,7 @@ public class EnemyMoveTest : MonoBehaviour
     NavMeshAgent agent;
     bool damaged = false;
     float hp = 10;
+    
 
     // Start is called before the first frame update
     void Start()

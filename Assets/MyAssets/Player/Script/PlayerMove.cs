@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
 
 	[SerializeField]GameObject PlayerModel;
 
+	[SerializeField] ControllerManager cm;
+
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
@@ -21,12 +23,14 @@ public class PlayerMove : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+
+		if ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) || (cm.PlayerMoveRightButton || cm.PlayerMoveLeftButton || cm.PlayerMoveForwardButton || cm.PlayerMoveBackwardButton))
 		{
 			PlayerModel.GetComponent<Animator>().SetBool("Move", true);
 			if (controller.isGrounded)
 			{
-				moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+				//moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+				moveDirection = new Vector3((cm.PlayerMoveRightButton ? 1 : 0) + (cm.PlayerMoveLeftButton ? -1 : 0), 0, (cm.PlayerMoveForwardButton ? 1 : 0) + (cm.PlayerMoveBackwardButton ? -1 : 0));
 				moveDirection = transform.TransformDirection(moveDirection);
 				moveDirection *= speed;
 			}
@@ -34,6 +38,7 @@ public class PlayerMove : MonoBehaviour
 		else
 		{
 			PlayerModel.GetComponent<Animator>().SetBool("Move", false);
+			moveDirection = new Vector3(0,0,0);
 		}
 
 		moveDirection.y -= gravity * Time.deltaTime;
