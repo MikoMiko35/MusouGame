@@ -10,6 +10,7 @@ public class EnemyMoveTest : MonoBehaviour
     Transform target;
     NavMeshAgent agent;
     bool damaged = false;
+    float hp = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,11 @@ public class EnemyMoveTest : MonoBehaviour
         //forceDir = new Vector3(0,1,0);
         rb.AddExplosionForce(200, playerPos + new Vector3(0,-3,0), 20);
         StartCoroutine("ReturnNav");
+        hp--;
+        if (hp < 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private IEnumerator ReturnNav()
