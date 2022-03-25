@@ -9,6 +9,7 @@ public class CollisionExplode : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy") {
             StartCoroutine(Explodion(other));
+            other.GetComponent<EnemyMoveTest>().Damaged(this.transform.position);
         }
     }
 

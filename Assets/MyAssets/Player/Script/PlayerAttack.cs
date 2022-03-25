@@ -28,7 +28,9 @@ public class PlayerAttack : MonoBehaviour
         GameObject effect = Instantiate(Effect) as GameObject;
         effect.transform.parent = this.transform;
         effect.transform.position = SpawnPlace.position;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
+        effect.GetComponent<SphereCollider>().enabled = false;
+        yield return new WaitForSeconds(0.8f);
         Destroy(effect);
         this.GetComponent<Animator>().SetBool("Attack", false);
     }
