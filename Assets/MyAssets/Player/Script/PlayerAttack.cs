@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
         effect.transform.position = SpawnPlace.position;
         yield return new WaitForSeconds(0.2f);
         effect.GetComponent<SphereCollider>().enabled = false;
-        yield return new WaitForSeconds(0.8f);
+        //yield return new WaitForSeconds(0.8f);
         Destroy(effect);
         this.GetComponent<Animator>().SetBool("Attack", false);
     }

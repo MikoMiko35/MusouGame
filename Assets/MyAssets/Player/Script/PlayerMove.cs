@@ -14,6 +14,12 @@ public class PlayerMove : MonoBehaviour
 
 	[SerializeField]GameObject PlayerModel;
 
+	[SerializeField] ControllerManager cm;
+
+	[SerializeField] HPGauge hpgauge;
+
+	float hp = 10;
+
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
@@ -21,12 +27,17 @@ public class PlayerMove : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+
+		if ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) || (cm.PlayerMoveRightButton || cm.PlayerMoveLeftButton || cm.PlayerMoveForwardButton || cm.PlayerMoveBackwardButton))
 		{
 			PlayerModel.GetComponent<Animator>().SetBool("Move", true);
 			if (controller.isGrounded)
 			{
+#if UNITY_EDITOR
 				moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+#else
+				moveDirection = new Vector3((cm.PlayerMoveRightButton ? 1 : 0) + (cm.PlayerMoveLeftButton ? -1 : 0), 0, (cm.PlayerMoveForwardButton ? 1 : 0) + (cm.PlayerMoveBackwardButton ? -1 : 0));
+#endif   
 				moveDirection = transform.TransformDirection(moveDirection);
 				moveDirection *= speed;
 			}
@@ -34,9 +45,24 @@ public class PlayerMove : MonoBehaviour
 		else
 		{
 			PlayerModel.GetComponent<Animator>().SetBool("Move", false);
+			moveDirection = new Vector3(0,0,0);
 		}
 
 		moveDirection.y -= gravity * Time.deltaTime;
 		controller.Move(moveDirection * Time.deltaTime);
+	}
+
+	public void Damaged(Vector3 enemyPos)
+	{
+		Debug.Log("HP"+hp);
+		hp--;
+		moveDirection = new Vector3(this.transform.position.x - enemyPos.x, 0, this.transform.position.z - enemyPos.z);
+		controller.Move(moveDirection.normalized * 0.1f);
+		hpgauge.HPChange(hp/30);
+		if (hp < 0)
+		{
+			SceneChanger.Instance.ChangeGameOver();
+			Destroy(this.gameObject);
+		}
 	}
 }

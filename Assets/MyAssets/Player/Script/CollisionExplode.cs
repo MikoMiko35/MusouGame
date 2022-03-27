@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,13 @@ using UnityEngine;
 public class CollisionExplode : MonoBehaviour
 {
     [SerializeField] GameObject Explode;
+    [SerializeField] String tagName = "Enemy";
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy") {
+        if (other.gameObject.tag == tagName) {
             StartCoroutine(Explodion(other));
-            other.GetComponent<EnemyMoveTest>().Damaged(this.transform.position);
+            if (tagName == "Enemy") other.GetComponent<EnemyMoveTest>().Damaged(this.transform.position);
+            if (tagName == "Player") other.GetComponent<PlayerMove>().Damaged(this.transform.position);
         }
     }
 
