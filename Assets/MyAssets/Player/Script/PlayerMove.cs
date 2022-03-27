@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
 
 	[SerializeField] ControllerManager cm;
 
+	float hp = 10;
+
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
@@ -29,8 +31,11 @@ public class PlayerMove : MonoBehaviour
 			PlayerModel.GetComponent<Animator>().SetBool("Move", true);
 			if (controller.isGrounded)
 			{
-				//moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+#if UNITY_EDITOR
+				moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+#else
 				moveDirection = new Vector3((cm.PlayerMoveRightButton ? 1 : 0) + (cm.PlayerMoveLeftButton ? -1 : 0), 0, (cm.PlayerMoveForwardButton ? 1 : 0) + (cm.PlayerMoveBackwardButton ? -1 : 0));
+#endif   
 				moveDirection = transform.TransformDirection(moveDirection);
 				moveDirection *= speed;
 			}
@@ -43,5 +48,17 @@ public class PlayerMove : MonoBehaviour
 
 		moveDirection.y -= gravity * Time.deltaTime;
 		controller.Move(moveDirection * Time.deltaTime);
+	}
+
+	public void Damaged(Vector3 enemyPos)
+	{
+		Debug.Log("HP"+hp);
+		hp--;
+		moveDirection = new Vector3(this.transform.position.x - enemyPos.x, 0, this.transform.position.z - enemyPos.z);
+		controller.Move(moveDirection.normalized * 0.1f);
+		if (hp < 0)
+		{
+			Destroy(this.gameObject);
+		}
 	}
 }

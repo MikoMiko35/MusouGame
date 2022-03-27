@@ -34,14 +34,6 @@ public class ControllerManager: MonoBehaviour
         {
             CameraMove.yAngle += 4;
         }
-        if (Input.GetAxis("Vertical") < 0)
-        {
-            //PlayerMove.MoveStraight();
-        }
-        if (Input.GetAxis("Vertical") > 0)
-        {
-            //PlayerMove.MoveStraight();
-        }
     }
 
     public void CameraTurnRightButtonDown()
