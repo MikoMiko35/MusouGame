@@ -13,7 +13,7 @@ public class EnemySponer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 60; i++)
         {
             enemySpon();
         }
@@ -26,7 +26,7 @@ public class EnemySponer : MonoBehaviour
         if (time < 0)
         {
             enemyRemain--;
-            time = 1 + time;
+            time = 0.5f + time;
             enemySpon();
             if (enemyRemain < 0) {
                 Destroy(sponer);

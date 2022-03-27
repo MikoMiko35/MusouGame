@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
 
 	[SerializeField] ControllerManager cm;
 
+	[SerializeField] HPGauge hpgauge;
+
 	float hp = 10;
 
 	void Start()
@@ -56,6 +58,7 @@ public class PlayerMove : MonoBehaviour
 		hp--;
 		moveDirection = new Vector3(this.transform.position.x - enemyPos.x, 0, this.transform.position.z - enemyPos.z);
 		controller.Move(moveDirection.normalized * 0.1f);
+		hpgauge.HPChange(hp/30);
 		if (hp < 0)
 		{
 			SceneChanger.Instance.ChangeGameOver();

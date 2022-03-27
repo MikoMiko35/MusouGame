@@ -11,14 +11,18 @@ public class EnemyMoveTest : MonoBehaviour
     NavMeshAgent agent;
     bool damaged = false;
     float hp = 10;
+    float maxhp = 10;
     [SerializeField] GameObject Effect;
     private const float attackRange = 2.0f;
     bool attacking = false;
+    [SerializeField] RectTransform hpgauge;
+    [SerializeField] Canvas canvas;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        canvas.worldCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -35,6 +39,8 @@ public class EnemyMoveTest : MonoBehaviour
         {
             
         }
+        canvas.transform.rotation =
+            Camera.main.transform.rotation;
     }
 
     public void Damaged(Vector3 playerPos)
@@ -48,6 +54,7 @@ public class EnemyMoveTest : MonoBehaviour
         rb.AddExplosionForce(200, playerPos + new Vector3(0,-3,0), 20);
         StartCoroutine("ReturnNav");
         hp--;
+        hpgauge.localScale = new Vector3(hp/maxhp, 1, 1);
         if (hp < 0)
         {
             Destroy(this.gameObject);
