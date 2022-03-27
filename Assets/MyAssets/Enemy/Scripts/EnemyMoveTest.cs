@@ -7,7 +7,7 @@ public class EnemyMoveTest : MonoBehaviour
 {
     //https://unity-guide.moon-bear.com/navmeshagent/
     [SerializeField]
-    Transform target;
+    public Transform target;
     NavMeshAgent agent;
     bool damaged = false;
     float hp = 10;

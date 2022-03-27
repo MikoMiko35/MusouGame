@@ -58,6 +58,7 @@ public class PlayerMove : MonoBehaviour
 		controller.Move(moveDirection.normalized * 0.1f);
 		if (hp < 0)
 		{
+			SceneChanger.Instance.ChangeGameOver();
 			Destroy(this.gameObject);
 		}
 	}
