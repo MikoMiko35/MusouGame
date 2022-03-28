@@ -1,3 +1,4 @@
+using KanKikuchi.AudioManager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class PlayerAttack : MonoBehaviour
     private IEnumerator Attack()
     {
         this.GetComponent<Animator>().SetBool("Attack", true);
+        SEManager.Instance.Play(SEPath.SYSTEM26);
         GameObject effect = Instantiate(Effect) as GameObject;
         effect.transform.parent = this.transform;
         effect.transform.position = SpawnPlace.position;

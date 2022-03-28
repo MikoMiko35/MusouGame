@@ -1,3 +1,4 @@
+using KanKikuchi.AudioManager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +55,7 @@ public class PlayerMove : MonoBehaviour
 
 	public void Damaged(Vector3 enemyPos)
 	{
+		SEManager.Instance.Play(SEPath.SYSTEM26);
 		Debug.Log("HP"+hp);
 		hp--;
 		moveDirection = new Vector3(this.transform.position.x - enemyPos.x, 0, this.transform.position.z - enemyPos.z);

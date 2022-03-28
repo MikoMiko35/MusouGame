@@ -1,3 +1,4 @@
+using KanKikuchi.AudioManager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,7 +58,13 @@ public class EnemyMoveTest : MonoBehaviour
         hpgauge.localScale = new Vector3(hp/maxhp, 1, 1);
         if (hp < 0)
         {
+            EnemySponer.Instance.EnemyDead();
+            SEManager.Instance.Play(SEPath.SYSTEM24);
             Destroy(this.gameObject);
+        }
+        else
+        {
+            SEManager.Instance.Play(SEPath.SYSTEM25);
         }
     }
     private void Attacking()
@@ -75,6 +82,7 @@ public class EnemyMoveTest : MonoBehaviour
     private IEnumerator AttackPhase()
     {
         yield return new WaitForSeconds(0.8f);
+        SEManager.Instance.Play(SEPath.SYSTEM26);
         this.GetComponent<Animator>().SetBool("Attack", true);
         GameObject effect = Instantiate(Effect) as GameObject;
         effect.transform.parent = this.transform;
