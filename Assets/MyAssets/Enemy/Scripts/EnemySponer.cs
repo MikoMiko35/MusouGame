@@ -25,15 +25,17 @@ public class EnemySponer : SingletonMonoBehaviour<EnemySponer>
     // Update is called once per frame
     void Update()
     {
+        if (enemyRemain <= 0) return;
+
         time -= Time.deltaTime;
         if (time < 0)
         {
             enemyRemain--;
             time = 0.5f + time;
             enemySpon();
-            if (enemyRemain < 0) {
+            if (enemyRemain <= 0) {
                 Destroy(sponer);
-                this.enabled = false;
+                //this.enabled = false;
             }
         }
     }
