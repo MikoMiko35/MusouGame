@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySponer : MonoBehaviour
+public class EnemySponer : SingletonMonoBehaviour<EnemySponer>
 {
     [SerializeField]private GameObject enemy;
     [SerializeField] private GameObject sponer;
     [SerializeField] private Transform player;
     [SerializeField] private float time = 1.0f;
     [SerializeField] private int enemyRemain = 100;
+    [SerializeField] private int enemyDeathNumber = 0;
+    [SerializeField] private int firstEnemySpon = 60;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 60; i++)
+        enemyDeathNumber = firstEnemySpon + enemyRemain;
+        for (int i = 0; i < firstEnemySpon; i++)
         {
             enemySpon();
         }
@@ -43,5 +46,14 @@ public class EnemySponer : MonoBehaviour
         go.GetComponent<EnemyMoveTest>().target = player;
         float scale = Random.Range(0.7f, 1.3f);
         go.transform.localScale = new Vector3(scale, scale, scale);
+    }
+
+    public void EnemyDead()
+    {
+        enemyDeathNumber--;
+        if (enemyDeathNumber <= 0)
+        {
+            SceneChanger.Instance.ChangeGameClear();
+        }
     }
 }

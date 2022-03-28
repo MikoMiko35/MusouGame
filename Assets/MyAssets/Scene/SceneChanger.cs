@@ -24,4 +24,8 @@ public class SceneChanger : SingletonMonoBehaviour<SceneChanger>
     {
         SceneManager.LoadScene("GameOver");
     }
+    public void ChangeGameClear()
+    {
+        SceneManager.LoadScene("GameClear");
+    }
 }

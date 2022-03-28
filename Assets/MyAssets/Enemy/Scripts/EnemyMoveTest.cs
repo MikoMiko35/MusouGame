@@ -58,6 +58,7 @@ public class EnemyMoveTest : MonoBehaviour
         hpgauge.localScale = new Vector3(hp/maxhp, 1, 1);
         if (hp < 0)
         {
+            EnemySponer.Instance.EnemyDead();
             SEManager.Instance.Play(SEPath.SYSTEM24);
             Destroy(this.gameObject);
         }
