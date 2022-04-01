@@ -18,6 +18,7 @@ public class EnemyMoveTest : MonoBehaviour
     bool attacking = false;
     [SerializeField] RectTransform hpgauge;
     [SerializeField] Canvas canvas;
+    [SerializeField] public Renderer targetRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +59,7 @@ public class EnemyMoveTest : MonoBehaviour
         hpgauge.localScale = new Vector3(hp/maxhp, 1, 1);
         if (hp < 0)
         {
-            EnemySponer.Instance.EnemyDead();
+            EnemySponer.Instance.EnemyDead(this);
             SEManager.Instance.Play(SEPath.SYSTEM24);
             Destroy(this.gameObject);
         }

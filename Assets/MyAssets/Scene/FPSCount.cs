@@ -27,7 +27,7 @@ public class FPSCount : MonoBehaviour
         else
         {
             timer = 0.3f;
-            text.text = (1 / (deltaTimeSum/ searchCount)).ToString("N1");
+            text.text = "FPS : "+(1 / (deltaTimeSum/ searchCount)).ToString("N1");
             deltaTimeSum = 0;
             searchCount = 0;
 }

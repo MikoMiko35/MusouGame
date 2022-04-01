@@ -506,6 +506,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400050, guid: ba24e610e0a338545b447ff44a3cf1cc, type: 3}
   m_PrefabInstance: {fileID: 234397459631170898}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &234397459625864946 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13700000, guid: ba24e610e0a338545b447ff44a3cf1cc, type: 3}
+  m_PrefabInstance: {fileID: 234397459631170898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!54 &3937695604565125964
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -552,6 +557,7 @@ MonoBehaviour:
   Effect: {fileID: 9068035377194042703, guid: 0090d98930d60ef49a22406ac96b33d4, type: 3}
   hpgauge: {fileID: 219448930521422384}
   canvas: {fileID: 6062453187011629156}
+  targetRenderer: {fileID: 234397459625864946}
 --- !u!195 &8198313277551803078
 NavMeshAgent:
   m_ObjectHideFlags: 0
