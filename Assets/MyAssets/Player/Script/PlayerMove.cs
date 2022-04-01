@@ -56,7 +56,7 @@ public class PlayerMove : MonoBehaviour
 	public void Damaged(Vector3 enemyPos)
 	{
 		SEManager.Instance.Play(SEPath.SYSTEM26);
-		Debug.Log("HP"+hp);
+		//Debug.Log("HP"+hp);
 		hp--;
 		moveDirection = new Vector3(this.transform.position.x - enemyPos.x, 0, this.transform.position.z - enemyPos.z);
 		controller.Move(moveDirection.normalized * 0.1f);

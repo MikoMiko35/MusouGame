@@ -22,6 +22,7 @@ public class CameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerModel == null) return;
         this.transform.position = PlayerModel.position;
         yAngle = ModCalc(yAngle);
         this.transform.rotation = Quaternion.Euler(0, yAngle, 0);

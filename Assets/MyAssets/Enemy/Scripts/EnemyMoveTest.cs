@@ -31,6 +31,7 @@ public class EnemyMoveTest : MonoBehaviour
     void Update()
     {
         if (damaged || attacking) return;
+        if (target == null) return;
 
         agent.SetDestination(target.position);
         if (agent.remainingDistance < attackRange)
